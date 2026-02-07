@@ -8,8 +8,8 @@ type snackType = {
 }
 
 export default function Home() {
-
     const [allSnacks, setAllSnacks] = useState<snackType[]>([])
+    // สร้าง allSnacks เพื่อเก็บ รายการขนมหลายชิ้น ค่าเริ่มต้นคือ Array ว่าง
 
     useEffect(() => {
         loadSnack()
@@ -26,17 +26,18 @@ export default function Home() {
         //ดึงเอาตัวที่ไม่เราออกไปเหลือแค่อันที่ไม่ลบอยู่
         setAllSnacks(newSnacks)
         await AsyncStorage.setItem("snack", JSON.stringify(newSnacks))
-        //
+       
     }
 
     return (
         <View>
-            <Text>หน้าแรก</Text>
+            <Text>🍿 รายการขนม</Text>
             {/* FlatList ใช้แสดงรายการข้อมูล */}
             <FlatList
                 data={allSnacks}
                 // i แทน index
                 keyExtractor={(_, i) => i.toString()}
+                  contentContainerStyle={{ paddingBottom: 20 }}
                 // item แทนข้อมูลของallSnacks
                 renderItem={({ item, index }) => (
                     <View>
@@ -52,5 +53,5 @@ export default function Home() {
 
         </View>
     )
-
+    
 }
