@@ -92,7 +92,7 @@ const myStyle = StyleSheet.create({
     },
 
     card: {
-        width: "90%",
+        width: "95%",
         
         backgroundColor: "#fff",
         padding: 20,

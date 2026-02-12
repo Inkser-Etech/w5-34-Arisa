@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity,StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // เพิ่ม type snackTypeเพื่อไม่ให้ text แสดงerror
@@ -30,9 +30,11 @@ export default function Home() {
     }
 
     return (
-        <View>
-            <Text>🍿 รายการขนม</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>🍿 รายการขนม</Text>
             {/* FlatList ใช้แสดงรายการข้อมูล */}
+
+
             <FlatList
                 data={allSnacks}
                 // i แทน index
@@ -40,18 +42,74 @@ export default function Home() {
                   contentContainerStyle={{ paddingBottom: 20 }}
                 // item แทนข้อมูลของallSnacks
                 renderItem={({ item, index }) => (
-                    <View>
-                        <Text>ชื่อ : {item.snackName.toString()}</Text>
-                        <Text>ราคา : {item.snackPrice.toString()}</Text>
-                        <TouchableOpacity onPress={() => removeSnack(index)}>
-                            <Text style={{ color: 'red' }}>ลบ</Text>
+                    <View style={styles.card}>
+
+
+                        <View>
+                            <Text style={styles.name}>ชื่อ : {item.snackName.toString()}</Text>
+                            <Text style={styles.price}>ราคา : {item.snackPrice.toString()}</Text>
+                        </View>
+
+
+                        <TouchableOpacity   style={styles.deleteBtn} 
+                         onPress={() => removeSnack(index)}>
+                            <Text style={styles.deleteText}>ลบ</Text>
                         </TouchableOpacity>
-                        <Text>--------------------</Text>
+
+
+                       
                     </View>
                 )}
             />
 
-        </View>
-    )
-    
+     </View>
+
+      )
 }
+
+        
+ const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F7F7F7',
+        padding: 15
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 15,
+        textAlign: 'center'
+    },
+    card: {
+        backgroundColor: '#fff',
+        padding: 15,
+        borderRadius: 12,
+        marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        elevation: 3
+    },
+    name: {
+        fontSize: 18,
+        fontWeight: '600'
+    },
+    price: {
+        fontSize: 16,
+        color: '#666',
+        marginTop: 4
+    },
+    deleteBtn: {
+        backgroundColor: '#FF5C5C',
+        paddingHorizontal: 14,
+        paddingVertical: 6,
+        borderRadius: 8
+    },
+    deleteText: {
+        color: '#fff',
+        fontWeight: 'bold'
+    }
+    
+
+    
+});
